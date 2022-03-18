@@ -93,6 +93,11 @@ class ProductListingLoaderSubscriber implements EventSubscriberInterface
         $isLastPage = $countNotSoldOutAgg->getCount() < $result->getPage() * $result->getLimit();
 
         if (!$isLastPage) {
+
+            $result->assign([
+                'total' => $countSoldOutAgg->getCount() + $countNotSoldOutAgg->getCount(),
+            ]);
+
             return;
         }
 
